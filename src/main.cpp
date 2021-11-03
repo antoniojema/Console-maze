@@ -15,6 +15,11 @@ int main()
 	int screen_height = 40;
 	float px_init = 0.5f;
 	float py_init = 0.5f;
+	float mv_per_secs = 0.1f/spf;
+	float turn_per_secs = 0.1f/spf;
+	float real_spf = 0.f;
+
+	std::cout << "Pene" << std::endl;
 
 	// Create Screen Buffer
 	//wchar_t* screen = new wchar_t[screen_width * screen_height];
@@ -29,14 +34,14 @@ int main()
 	maze_str += L"#.#.####......#";
 	maze_str += L"#.###.#.......#";
 	maze_str += L"#.............#";
-	maze_str += L"#.####.#.#....#";
-	maze_str += L"#.#..#.#.#....#";
-	maze_str += L"#.##.#.#.#....#";
-	maze_str += L"#....#.#.#....#";
-	maze_str += L"####.#.#.#....#";
-	maze_str += L"##.#..#..#....#";
-	maze_str += L"#..#.....#....#";
-	maze_str += L"#.##..........#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
+	maze_str += L"#.............#";
 	maze_str += L"#..............";
 	maze_str += L"#############..";
 	int maze_width = 15;
@@ -55,19 +60,19 @@ int main()
 
 		if (GetKeyState('W') & 0x8000)
 		{
-			M.player_forward(0.1f);
+			M.player_forward(mv_per_secs * real_spf);
 		}
 		else if (GetKeyState('S') & 0x8000)
 		{
-			M.player_forward(-0.1f);
+			M.player_forward(-mv_per_secs * real_spf);
 		}
 		if (GetKeyState('D') & 0x8000)
 		{
-			M.player_turn(0.1f);
+			M.player_turn(turn_per_secs * real_spf);
 		}
 		else if (GetKeyState('A') & 0x8000)
 		{
-			M.player_turn(-0.1f);
+			M.player_turn(-turn_per_secs * real_spf);
 		}
 
 		// Draw
@@ -79,10 +84,12 @@ int main()
 		delete [] view;
 
 		// Wait for frame to end
-		do
-		{
-			t1 = clock();
-		} while ((float(t1) - float(t0)) / CLOCKS_PER_SEC < spf);
+		//do
+		//{
+		//	t1 = clock();
+		//} while ((float(t1) - float(t0)) / CLOCKS_PER_SEC < spf);
+		//t0 = clock();
+		real_spf = ((float)clock() - t0) / CLOCKS_PER_SEC;
 		t0 = clock();
 	}
 

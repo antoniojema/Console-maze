@@ -12,8 +12,8 @@ public:
 		posx = 0;
 		posy = 0;
 		angle = 0;
-		fov = 60.f * (float)PI / 180.f;
-		vfov = 60.f * (float)PI / 180.f;
+		fov = 60. * PI / 180.;
+		vfov = 60. * PI / 180.;
 	}
 	~Player()
 	{
